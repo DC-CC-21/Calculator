@@ -1,0 +1,298 @@
+﻿<Window x:Class="Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="650"
+        Width="600">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                <GradientStop Color="#FF7AC5FF" />
+                <GradientStop Color="#FF0182AD"
+                              Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.RowSpan="2"
+                    Background="White">
+            <!--Previous equation sidebar title-->
+            <Label Content="Previous Equations"
+                   FontSize="20" />
+            
+            <!--Scroll viewer container for the sidebar buttons-->
+            <ScrollViewer Height="500">
+                <StackPanel x:Name="Previous">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Button}"
+                               x:Key="PrevBtn">
+                            <Setter Property="Height"
+                                    Value="50" />
+                            <Setter Property="FontSize"
+                                    Value="16" />
+                            <Setter Property="Background"
+                                    Value="White" />
+                            <Setter Property="BorderThickness"
+                                    Value="0" />
+                            <Setter Property="BorderBrush"
+                                    Value="#FF5ABBED" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="BorderThickness"
+                                            Value="2" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="Button"
+                               x:Key="XBtn"
+                               BasedOn="{StaticResource PrevBtn}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="Red" />
+                                    <Setter Property="BorderThickness"
+                                            Value="0" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+        
+        <!--Container to hold the graph canvas and the output label-->
+        <DockPanel Grid.Column="1"
+                   Background="Black">
+            
+            <!--Graphing canvas-->
+            <Canvas DockPanel.Dock="Top"
+                    Height="150"
+                    Background="White"
+                    Margin="10, 10, 10, 0"
+                    Name="Canvas" />
+            
+            <!--Status label for the graphing-->
+            <Label Name="State"
+                   DockPanel.Dock="Left"
+                   Content=""
+                   Background="White"
+                   Margin="10, 0, 0, 10"
+                   VerticalContentAlignment="Bottom" />
+
+
+            <!--Output Label-->
+            <Label Grid.Row="0"
+                   Background="White"
+                   Margin="0 0, 10, 10"
+                   VerticalContentAlignment="Bottom"
+                   HorizontalContentAlignment="Right"
+                   Name="Output"
+                   FontSize="22"
+                   DockPanel.Dock="Right"
+                   Height="50" />
+        </DockPanel>
+        
+        
+        <DockPanel Grid.Column="1"
+                   Grid.Row="1">
+            <!--Grid to hold the buttons-->
+            <Grid Margin="5"
+                  Name="ButtonGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <!--Styles for the calculator buttons in this grid-->
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Button}"
+                           x:Key="Default">
+                        <Setter Property="FontSize"
+                                Value="16" />
+                        <Setter Property="FontWeight"
+                                Value="Bold" />
+                        <Setter Property="Height"
+                                Value="50" />
+                        <Setter Property="Background"
+                                Value="LightGray" />
+                        <Setter Property="Margin"
+                                Value="2" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="#FF00A7BD"
+                                                  BlurRadius="4"
+                                                  ShadowDepth="2" />
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="#00aaff" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="Num"
+                           BasedOn="{StaticResource Default}"
+                           TargetType="Button">
+                        <Setter Property="Background"
+                                Value="White" />
+                    </Style>
+                </Grid.Resources>
+                <!--Bottom Row-->
+                <Button Grid.Row="6"
+                        Grid.Column="0"
+                        Style="{StaticResource Num}">0</Button>
+                <Button Grid.Row="6"
+                        Grid.Column="1"
+                        Style="{StaticResource Num}">.</Button>
+                <Button Grid.Row="6"
+                        Grid.Column="2"
+                        Style="{StaticResource Num}">
+                    -</Button>
+                <Button Grid.Row="6"
+                        Grid.Column="3"
+                        Style="{StaticResource Default}"
+                        Click="Enter"
+                        Tag="Ignore">Enter</Button>
+
+                <!--Row Values 1,2,3-->
+                <Button Grid.Row="5"
+                        Style="{StaticResource Num}"
+                        Grid.Column="0">1</Button>
+                <Button Grid.Row="5"
+                        Grid.Column="1"
+                        Style="{StaticResource Num}">2</Button>
+                <Button Grid.Row="5"
+                        Grid.Column="2"
+                        Style="{StaticResource Num}">3</Button>
+                <Button Grid.Row="5"
+                        Grid.Column="3"
+                        Style="{StaticResource Default}">+</Button>
+
+                <!--Row Values 4,5,6-->
+                <Button Grid.Row="4"
+                        Grid.Column="0"
+                        Style="{StaticResource Num}">4</Button>
+                <Button Grid.Row="4"
+                        Grid.Column="1"
+                        Style="{StaticResource Num}">5</Button>
+                <Button Grid.Row="4"
+                        Grid.Column="2"
+                        Style="{StaticResource Num}">6</Button>
+                <Button Grid.Row="4"
+                        Grid.Column="3"
+                        Style="{StaticResource Default}">-</Button>
+
+                <!--Row Values 7,8,9-->
+                <Button Grid.Row="3"
+                        Grid.Column="0"
+                        Style="{StaticResource Num}">7</Button>
+                <Button Grid.Row="3"
+                        Grid.Column="1"
+                        Style="{StaticResource Num}">8</Button>
+                <Button Grid.Row="3"
+                        Grid.Column="2"
+                        Style="{StaticResource Num}">9</Button>
+                <Button Grid.Row="3"
+                        Grid.Column="3"
+                        Style="{StaticResource Default}">*</Button>
+
+                <!--3rd from Top Row-->
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource Default}">^</Button>
+                <Button Grid.Row="2"
+                        Grid.Column="1"
+                        Style="{StaticResource Default}">(</Button>
+                <Button Grid.Row="2"
+                        Grid.Column="2"
+                        Style="{StaticResource Default}">)</Button>
+                <Button Grid.Row="2"
+                        Grid.Column="3"
+                        Style="{StaticResource Default}">/</Button>
+
+                <!--2nd from Top Row-->
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource Default}">sin(</Button>
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource Default}">cos(</Button>
+                <Button Grid.Row="1"
+                        Grid.Column="2"
+                        Style="{StaticResource Default}">tan(</Button>
+                <Button Grid.Row="1"
+                        Grid.Column="3"
+                        Style="{StaticResource Default}">√</Button>
+
+                <!--Top Row-->
+                <Button Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource Default}">x</Button>
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource Default}">π</Button>
+                <Button Grid.Row="0"
+                        Grid.Column="2"
+                        Style="{StaticResource Default}"
+                        Click="Delete"
+                        Tag="Ignore">Delete</Button>
+                <Button Grid.Row="0"
+                        Grid.Column="3"
+                        Style="{StaticResource Default}"
+                        Click="Clear"
+                        Tag="Ignore">Clear</Button>
+            </Grid>
+
+        </DockPanel>
+    </Grid>
+</Window>
