@@ -9,9 +9,6 @@ This repository contains a Graphing Calculator App written in C# using Windows P
 
 I created this application to gain experience with building user interfaces in C#. It contains a range of programming concepts, including classes, functions, and view controls, which allowed me to improve my skills in each of these areas.
 
-#### Video Walkthrough
-
-[Software Demo Video](http://youtube.link.goes.here)
 
 # Development Environment
 
